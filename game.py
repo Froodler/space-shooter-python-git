@@ -134,6 +134,7 @@ while running:
                     # Alien is hit
                     projectiles.remove(projectile)
                     aliens.remove(alien)
+                    score += 1
 
                     # No further aliens can be hit by this projectile 
                     # so skip to the next projectile 
@@ -152,6 +153,11 @@ while running:
     ## Drawing ##
     screen.fill((0,0,0)) 
 
+    # Projectiles
+    for projectile in projectiles:
+        rect = (projectile['x'], projectile['y'], projectile_w, projectile_h)
+        pg.draw.rect(screen, (255, 0, 0), rect) 
+
     # 3 images --> tick % 3
     # 100% animation speed: tick % 3
     # 25% animation speed: int(tick/4) % 3
@@ -162,11 +168,6 @@ while running:
     r = int(tick/8) % 2
     for alien in aliens:
         screen.blit(alien_images[r], (alien['x'], alien['y']))
-
-    # Projectiles
-    for projectile in projectiles:
-        rect = (projectile['x'], projectile['y'], projectile_w, projectile_h)
-        pg.draw.rect(screen, (255, 0, 0), rect) 
 
     # Scoreboard
     text = font_scoreboard.render(f"{score:04d}", True, (255,255,255))
